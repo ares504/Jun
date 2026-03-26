@@ -2,7 +2,7 @@ import os
 import requests
 from flask import Flask, request, jsonify
 
-app = Flask(name)
+app = Flask(__name__)
 
 # --- CONFIGURACIÓN SEGURA ---
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
@@ -57,6 +57,6 @@ def telegram_webhook():
         print(f"Error: {e}")
         return "error", 500
 
-if name == "main":
+if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
