@@ -27,7 +27,7 @@ def leer():
 def hablar():
     global buzon_voz
     msg = request.args.get('msg', 'sin mensaje')
-    buzon_voz["mansaje"] = msg
+    buzon_voz["mensaje"] = msg
     return f"mensaje guardado: {msg}"
 
 # WEBHOOK PARA TELEGRAM
