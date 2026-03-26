@@ -50,8 +50,14 @@ def telegram_webhook():
                 ]
             }
             
-            res_groq = requests.post(url_groq, json=payload, headers=headers).json()
-            respuesta_ia = res_groq['choices'][0]['message']['content']
+response = requests.post(url_groq, json=payload, headers=headers)
+res_json = response.json()
+
+if 'choices' not in res_json:
+    print(f"ERROR DE GROQ: {res_json}") # Esto saldrá en los logs de Render
+    respuesta_ia = "Error al conectar con la IA"
+else:
+    respuesta_ia = res_json['choices'][0]['message']['content']
 
             # 2. Guardar respuesta para el Motorola
             buzon_voz["mensaje"] = respuesta_ia
