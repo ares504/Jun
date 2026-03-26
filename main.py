@@ -1,12 +1,15 @@
+import os
 from flask import Flask, request, jsonify
 import requests
 
 app = Flask(name)
 
-# --- CONFIGURACIÓN (Pon tus datos aquí) ---
-GROQ_API_KEY = "TU_API_KEY_DE_GROQ"
-# Si vas a usar Telegram, pon el Token aquí. Si no, déjalo vacío por ahora.
-TELEGRAM_TOKEN = "TU_TOKEN_DE_TELEGRAM" 
+# --- CONFIGURACIÓN SEGURA ---
+# Ahora el código buscará las llaves en la configuración de Render
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
+TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
+
+# El resto del código sigue igual...
 
 # Esta variable guardará la última respuesta para que tu Motorola la lea
 buzon_voz = {"mensaje": ""}
