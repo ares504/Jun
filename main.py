@@ -2,7 +2,7 @@ import os
 import requests
 from flask import Flask, request, jsonify
 
-app = Flask(__name__)
+app = Flask(_name_)
 
 # --- CONFIGURACIÓN SEGURA ---
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
@@ -22,7 +22,7 @@ def leer():
     buzon_voz["mensaje"] = ""
     return jsonify({"mensaje": res})
 
-#ruta para motorola (termux)
+# Ruta para meter mensajes manualmente
 @app.route('/hablar')
 def hablar():
     global buzon_voz
@@ -50,14 +50,15 @@ def telegram_webhook():
                 ]
             }
             
-response = requests.post(url_groq, json=payload, headers=headers)
-res_json = response.json()
+            # --- AQUÍ ESTABA EL ERROR DE INDENTACIÓN ---
+            response = requests.post(url_groq, json=payload, headers=headers)
+            res_json = response.json()
 
-if 'choices' not in res_json:
-    print(f"ERROR DE GROQ: {res_json}") # Esto saldrá en los logs de Render
-    respuesta_ia = "Error al conectar con la IA"
-else:
-    respuesta_ia = res_json['choices'][0]['message']['content']
+            if 'choices' not in res_json:
+                print(f"ERROR DE GROQ: {res_json}")
+                respuesta_ia = "Error al conectar con la IA"
+            else:
+                respuesta_ia = res_json['choices'][0]['message']['content']
 
             # 2. Guardar respuesta para el Motorola
             buzon_voz["mensaje"] = respuesta_ia
@@ -71,6 +72,6 @@ else:
         print(f"Error: {e}")
         return "error", 500
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
