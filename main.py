@@ -20,7 +20,7 @@ def home():
 def leer():
     res = buzon_voz.get("mensaje", "")
     buzon_voz["mensaje"] = ""
-    return jsonify({"texto": res})
+    return jsonify({"mensaje": res})
 
 #ruta para motorola (termux)
 @app.route('/hablar')
