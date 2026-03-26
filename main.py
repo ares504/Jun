@@ -22,6 +22,14 @@ def leer():
     buzon_voz["mensaje"] = ""
     return jsonify({"texto": res})
 
+#ruta para motorola (termux)
+@app.route('/hablar')
+def hablar():
+    global buzon_voz
+    msg = request.args.get('msg', 'sin mensaje')
+    buzon_voz["mansaje"] = msg
+    return f"mensaje guardado: {msg}"
+
 # WEBHOOK PARA TELEGRAM
 @app.route('/telegram', methods=['POST'])
 def telegram_webhook():
