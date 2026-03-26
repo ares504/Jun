@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, jsonify
 import requests
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 # --- CONFIGURACIÓN SEGURA ---
 # Ahora el código buscará las llaves en la configuración de Render
